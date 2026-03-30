@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="TFT Builder">
+    <meta name="theme-color" content="#0a0e27">
+    <meta name="description" content="Offline-first TFT Team Builder - Build teams anywhere, anytime, no internet required">
+    
+    <!-- Apple Touch Icon (iPhone Home Screen) - TFT Logo -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><style>.bg{fill:%230a0e27}.text{fill:%2306b6d4;font-family:Arial,sans-serif;font-weight:bold;font-size:80px;text-anchor:middle}.border{fill:none;stroke:%2306b6d4;stroke-width:3}</style></defs><rect width='180' height='180' class='bg'/><circle cx='90' cy='90' r='85' class='border'/><text x='90' y='125' class='text'>TFT</text></svg>">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><style>.bg{fill:%230a0e27}.text{fill:%2306b6d4;font-family:Arial,sans-serif;font-weight:bold;font-size:50px;text-anchor:middle}.border{fill:none;stroke:%2306b6d4;stroke-width:2}</style></defs><rect width='100' height='100' class='bg'/><circle cx='50' cy='50' r='45' class='border'/><text x='50' y='70' class='text'>TFT</text></svg>">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="data:application/json,{%22name%22:%22TFT Team Builder%22,%22short_name%22:%22TFT Builder%22,%22description%22:%22Offline-first Team Fight Tactics team builder%22,%22start_url%22:%22/%22,%22display%22:%22fullscreen%22,%22background_color%22:%22%230a0e27%22,%22theme_color%22:%22%230a0e27%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><style>.bg{fill:%230a0e27}.text{fill:%2306b6d4;font-family:Arial,sans-serif;font-weight:bold;font-size:96px;text-anchor:middle}.border{fill:none;stroke:%2306b6d4;stroke-width:4}</style></defs><rect width='192' height='192' class='bg'/><circle cx='96' cy='96' r='85' class='border'/><text x='96' y='140' class='text'>TFT</text></svg>%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any%22},{%22src%22:%22data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><style>.bg{fill:%230a0e27}.text{fill:%2306b6d4;font-family:Arial,sans-serif;font-weight:bold;font-size:256px;text-anchor:middle}.border{fill:none;stroke:%2306b6d4;stroke-width:12}</style></defs><rect width='512' height='512' class='bg'/><circle cx='256' cy='256' r='225' class='border'/><text x='256' y='370' class='text'>TFT</text></svg>%22,%22sizes%22:%22512x512%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any maskable%22}]}">
+    
+    <title>TFT Team Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        header {
+            border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .header-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #06b6d4;
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.6);
+            font-weight: 900;
+            font-size: 18px;
+            color: #06b6d4;
+            font-family: Arial, sans-serif;
+        }
+
+        .logo::before {
+            content: 'TFT';
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .logo::after {
+            content: '';
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: #d1d5db;
+            font-weight: 300;
+            margin: 0;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: auto;
+            padding: 0.5rem 0.75rem;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-badge.online {
+            color: #4ade80;
+        }
+
+        .status-badge.offline {
+            color: #fb923c;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-badge.online .status-dot {
+            background: #4ade80;
+        }
+
+        .status-badge.offline .status-dot {
+            background: #fb923c;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: none;
+            background: transparent;
+            color: #9ca3af;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: rgba(34, 211, 238, 0.2);
+            color: #06b6d4;
+            border: 1px solid rgba(34, 211, 238, 0.5);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: #d1d5db;
+        }
+
+        main {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .card h2 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #06b6d4;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .set-selector {
+            margin-bottom: 1.5rem;
+        }
+
+        .set-selector label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #d1d5db;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: #111827;
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            color: #fff;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #06b6d4;
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .team-slot {
+            aspect-ratio: 1;
+            background: #1f2937;
+            border: 2px solid #374151;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            group: group;
+        }
+
+        .team-slot:hover {
+            border-color: rgba(34, 211, 238, 0.5);
+            background: #374151;
+        }
+
+        .team-slot.filled {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(34, 211, 238, 0.2));
+            border-color: rgba(34, 211, 238, 0.5);
+        }
+
+        .team-slot:not(.filled) {
+            color: #4b5563;
+            font-size: 1.5rem;
+        }
+
+        .unit-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            text-align: center;
+            font-size: 0.75rem;
+        }
+
+        .unit-emoji {
+            font-size: 1.5rem;
+        }
+
+        .unit-name {
+            color: #d1d5db;
+            font-weight: 600;
+        }
+
+        .unit-cost {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: #dc2626;
+            border: none;
+            color: #fff;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .team-slot.filled:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .traits-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(34, 211, 238, 0.2);
+        }
+
+        .traits-section h3 {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .traits-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .trait-badge {
+            padding: 0.25rem 0.75rem;
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.4), rgba(59, 130, 246, 0.4));
+            border: 1px solid rgba(147, 51, 234, 0.6);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #d8b4fe;
+        }
+
+        .cost-summary {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .cost-summary span:last-child {
+            font-weight: bold;
+            color: #fbbf24;
+        }
+
+        button {
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .save-btn {
+            background: linear-gradient(135deg, #16a34a, #10b981);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .save-btn:hover {
+            background: linear-gradient(135deg, #15803d, #059669);
+            transform: scale(1.02);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-box input {
+            flex: 1;
+        }
+
+        .unit-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .unit-btn {
+            padding: 0.75rem;
+            background: #1f2937;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #fff;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            width: 100%;
+        }
+
+        .unit-btn:hover {
+            background: #374151;
+            border-color: rgba(59, 130, 246, 0.6);
+        }
+
+        .unit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .unit-btn-content {
+            flex: 1;
+        }
+
+        .unit-btn-name {
+            font-weight: 600;
+            color: #fff;
+            font-size: 0.875rem;
+        }
+
+        .unit-btn-traits {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            margin-top: 0.25rem;
+        }
+
+        .unit-btn-cost {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        .meta-comp {
+            padding: 1rem;
+            background: rgba(217, 119, 6, 0.1);
+            border: 1px solid rgba(217, 119, 6, 0.2);
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s;
+        }
+
+        .meta-comp:hover {
+            border-color: rgba(217, 119, 6, 0.5);
+        }
+
+        .tier-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            font-weight: bold;
+            font-size: 1.125rem;
+            border-radius: 0.5rem;
+            color: #fff;
+            margin-right: 1rem;
+            float: left;
+        }
+
+        .tier-s { background: #FFD700; color: #000; }
+        .tier-a { background: #C0C0C0; color: #000; }
+        .tier-b { background: #CD7F32; color: #fff; }
+
+        .comp-name {
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 0.25rem;
+        }
+
+        .comp-units {
+            font-size: 0.875rem;
+            color: #d1d5db;
+            margin-bottom: 0.5rem;
+        }
+
+        .comp-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .comp-wr { color: #4ade80; font-weight: 600; }
+        .comp-pr { color: #9ca3af; }
+
+        .sets-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .set-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .set-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .set-header h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #818cf8;
+            margin: 0;
+        }
+
+        .set-status {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.25rem;
+        }
+
+        .traits-grid {
+            margin-bottom: 2rem;
+        }
+
+        .traits-grid h3 {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #d1d5db;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .traits-grid-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .trait-tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(99, 102, 241, 0.3);
+            border: 1px solid rgba(99, 102, 241, 0.5);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #a5b4fc;
+            cursor: help;
+        }
+
+        .champions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+        }
+
+        .champion-card {
+            padding: 0.75rem;
+            background: #1f2937;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 0.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .champion-card:hover {
+            border-color: rgba(99, 102, 241, 0.6);
+            background: #374151;
+            transform: translateY(-2px);
+        }
+
+        .champion-emoji {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .champion-name {
+            font-weight: 600;
+            color: #fff;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .champion-cost {
+            color: #fbbf24;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .champion-traits {
+            font-size: 0.7rem;
+            color: #d1d5db;
+            line-height: 1.2;
+        }
+
+        .saved-teams {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(34, 211, 238, 0.4);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            backdrop-filter: blur(10px);
+            max-width: 350px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 40;
+        }
+
+        .saved-teams-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .saved-teams-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #4ade80;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 0.75rem;
+            padding: 0;
+            width: auto;
+            margin: 0;
+        }
+
+        .team-item {
+            padding: 0.75rem;
+            background: #1f2937;
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .team-item:hover {
+            border-color: rgba(34, 211, 238, 0.5);
+        }
+
+        .team-item-name {
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.25rem;
+        }
+
+        .team-item-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #9ca3af;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-item-delete {
+            background: #dc2626;
+            border: none;
+            color: #fff;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            width: 100%;
+            margin: 0;
+        }
+
+        .team-item-delete:hover {
+            background: #b91c1c;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .tabs {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .tab-btn {
+                flex: 1;
+                min-width: 80px;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .saved-teams {
+                position: fixed;
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+                max-width: none;
+            }
+
+            main {
+                padding-bottom: 350px;
+            }
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo"></div>
+                <div class="logo-text">
+                    <h1>⚔️ TFT</h1>
+                    <p>Team Builder</p>
+                </div>
+            </div>
+
+            <div class="status-badge online" id="statusBadge">
+                <div class="status-dot"></div>
+                <span id="statusText">Online</span>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('builder')">🛠️ Builder</button>
+                <button class="tab-btn" onclick="switchTab('meta')">📊 Meta</button>
+                <button class="tab-btn" onclick="switchTab('sets')">📖 Sets</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Builder Tab -->
+        <div id="builder" class="tab-content active">
+            <div class="container">
+                <!-- Team Builder Column -->
+                <div style="grid-column: span 2;">
+                    <div class="card">
+                        <h2>👥 Your Team (<span id="teamCount">0</span>/8)</h2>
+
+                        <div class="set-selector">
+                            <label>Current Set</label>
+                            <select id="setSelector" onchange="changeSet()">
+                                <option value="set16">Set 16: Remix Rumble 2 🔴</option>
+                                <option value="set15">Set 15: Serpent Spire ⚡</option>
+                                <option value="set14">Set 14: Remix Rumble (Legacy) ⏰</option>
+                                <option value="set17">Set 17: Delve (Coming Soon) 🔮</option>
+                            </select>
+                        </div>
+
+                        <input type="text" id="teamName" placeholder="Team name (e.g., 'Reaper God-King')" style="margin-bottom: 1rem;">
+
+                        <div class="team-grid" id="teamGrid"></div>
+
+                        <div class="traits-section hidden" id="traitsSection">
+                            <h3>Trait Synergies</h3>
+                            <div class="traits-list" id="traitsList"></div>
+                        </div>
+
+                        <div class="cost-summary hidden" id="costSummary">
+                            Total Unit Cost: <span id="totalCost">0</span> ⭐
+                        </div>
+
+                        <button class="save-btn" onclick="saveTeam()">💾 Save Team to Device</button>
+                    </div>
+                </div>
+
+                <!-- Unit Library Column -->
+                <div>
+                    <div class="card">
+                        <h2>Unit Library</h2>
+
+                        <div class="search-box">
+                            <input type="text" id="searchBox" placeholder="Search units..." onkeyup="filterUnits()">
+                        </div>
+
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; font-size: 0.875rem; font-weight: 600; color: #d1d5db; margin-bottom: 0.75rem; text-transform: uppercase;">Filter by Trait</label>
+                            <select id="traitFilter" onchange="filterUnits()">
+                                <option value="all">All Traits</option>
+                            </select>
+                        </div>
+
+                        <div class="unit-list" id="unitList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meta Tab -->
+        <div id="meta" class="tab-content">
+            <div class="card">
+                <h2>📊 Meta Tier List</h2>
+
+                <div class="set-selector">
+                    <label>Select Set</label>
+                    <select id="metaSetSelector" onchange="loadMetaComps()">
+                        <option value="set16">Set 16: Remix Rumble 2</option>
+                        <option value="set15">Set 15: Serpent Spire</option>
+                        <option value="set14">Set 14: Remix Rumble</option>
+                        <option value="set17">Set 17: Delve (Coming Soon)</option>
+                    </select>
+                </div>
+
+                <div id="metaList"></div>
+            </div>
+        </div>
+
+        <!-- Sets Tab -->
+        <div id="sets" class="tab-content">
+            <div class="sets-section" id="setsContainer"></div>
+        </div>
+    </main>
+
+    <div class="saved-teams hidden" id="savedTeamsPanel">
+        <div class="saved-teams-header">
+            <div class="saved-teams-title">💾 Saved Teams (<span id="teamCount2">0</span>)</div>
+            <button class="toggle-btn" onclick="toggleSavedTeams()">▼</button>
+        </div>
+        <div id="savedTeamsList"></div>
+    </div>
+
+    <script>
+        // TFT Data embedded
+        const tftData = {
+            lastUpdated: "2024-03-29T00:00:00.000Z",
+            sets: [
+                {
+                    id: "set14",
+                    name: "Set 14: Remix Rumble",
+                    number: 14,
+                    status: "current",
+                    releaseDate: "2024-11-21",
+                    units: [
+                        { id: "aatrox", name: "Aatrox", cost: 5, traits: ["Reaper", "God-King"], img: "⚔️" },
+                        { id: "akali", name: "Akali", cost: 3, traits: ["Assassin", "True Damage"], img: "🥷" },
+                        { id: "annie", name: "Annie", cost: 2, traits: ["Arcanist", "Yordle"], img: "👧" },
+                        { id: "ashe", name: "Ashe", cost: 4, traits: ["Primal", "Frostborn"], img: "❄️" },
+                        { id: "blitzcrank", name: "Blitzcrank", cost: 3, traits: ["Chemtech", "Bruiser"], img: "🤖" },
+                        { id: "brand", name: "Brand", cost: 2, traits: ["Arcanist", "Pykeist"], img: "🔥" },
+                        { id: "caitlyn", name: "Caitlyn", cost: 2, traits: ["Sentinel", "Gunner"], img: "🔫" },
+                        { id: "darius", name: "Darius", cost: 4, traits: ["Reaper", "Noxus"], img: "🩸" },
+                        { id: "ekko", name: "Ekko", cost: 2, traits: ["Clockwork", "Hextech"], img: "⏰" },
+                        { id: "fiora", name: "Fiora", cost: 4, traits: ["Duelist", "Sentinel"], img: "🗡️" },
+                        { id: "garen", name: "Garen", cost: 2, traits: ["Demacian", "Knight"], img: "🛡️" },
+                        { id: "graves", name: "Graves", cost: 2, traits: ["Scrap", "Gunner"], img: "🔫" },
+                        { id: "jax", name: "Jax", cost: 3, traits: ["Duelist", "Weapon Master"], img: "🔨" },
+                        { id: "jayce", name: "Jayce", cost: 4, traits: ["Hextech", "Transformer"], img: "🔧" },
+                        { id: "jinx", name: "Jinx", cost: 5, traits: ["Scrap", "Gunner"], img: "💣" },
+                        { id: "katarina", name: "Katarina", cost: 3, traits: ["Assassin", "Noxus"], img: "🗡️" },
+                        { id: "lux", name: "Lux", cost: 3, traits: ["Arcanist", "Demacian"], img: "✨" },
+                        { id: "mordekaiser", name: "Mordekaiser", cost: 5, traits: ["Reaper", "Sorcerer"], img: "💀" },
+                        { id: "pyke", name: "Pyke", cost: 3, traits: ["Pykeist", "Assassin"], img: "🔱" },
+                        { id: "skarner", name: "Skarner", cost: 4, traits: ["Mystic", "Bruiser"], img: "🦂" },
+                    ],
+                    traits: [
+                        { name: "Reaper", description: "Champions gain attack speed when they get a takedown" },
+                        { name: "God-King", description: "Champions gain bonus stats and become more powerful" },
+                        { name: "Assassin", description: "Leap to enemy backline on combat start and gain critical strike chance" },
+                        { name: "Arcanist", description: "Gain mana generation and magic damage" },
+                        { name: "Sentinel", description: "Block incoming damage at the start of combat" },
+                        { name: "Gunner", description: "Gain attack range and increased damage" },
+                        { name: "Clockwork", description: "Start combat with bonus mana" },
+                        { name: "Hextech", description: "Gain evasion and mana reduction" },
+                        { name: "Duelist", description: "Gain critical strike chance and lifesteal" },
+                        { name: "Scrap", description: "Gain shields and attack speed when cast" },
+                        { name: "Demacian", description: "Gain armor and health" },
+                        { name: "Knight", description: "All units gain armor for each Knight" },
+                        { name: "Noxus", description: "Gain damage and bleed effects" },
+                        { name: "Primal", description: "Champions gain bonus stats when combat starts" },
+                        { name: "Frostborn", description: "Attacks slow enemies and deal bonus damage" },
+                        { name: "Chemtech", description: "Gain poison and burn effects" },
+                        { name: "Bruiser", description: "Gain increased health and armor" },
+                        { name: "Pykeist", description: "Execute enemies and gain gold" },
+                        { name: "Weapon Master", description: "Gain bonus attack damage and attack speed" },
+                        { name: "True Damage", description: "Attacks ignore armor and deal pure damage" },
+                        { name: "Yordle", description: "Gain evasion chance" },
+                        { name: "Mystic", description: "All units gain magic resistance" },
+                        { name: "Sorcerer", description: "Gain magic damage and ability power" },
+                        { name: "Transformer", description: "Transform into a stronger form during combat" },
+                    ],
+                    metaComps: [
+                        { id: "reaper-godking", name: "Reaper God-King", rating: "S", winRate: 54.2, pickRate: 18.5, units: ["Aatrox", "Darius", "Mordekaiser"], description: "Powerful late-game composition with Reapers and God-Kings synergy. Build around Aatrox or Mordekaiser as your main carry." },
+                        { id: "assassin-carry", name: "Assassin Carry", rating: "A", winRate: 51.8, pickRate: 15.2, units: ["Akali", "Katarina", "Pyke"], description: "High-risk, high-reward early game pressure. Focus on getting 3-star units with assassin items." },
+                        { id: "arcanist-control", name: "Arcanist Control", rating: "A", winRate: 50.5, pickRate: 12.3, units: ["Annie", "Brand", "Lux"], description: "Spell-focused composition with mana synergies. Build items on your spell-casters." },
+                    ]
+                },
+                {
+                    id: "set13",
+                    name: "Set 13: Heresy (Legacy)",
+                    number: 13,
+                    status: "legacy",
+                    releaseDate: "2024-08-21",
+                    units: [
+                        { id: "aatrox2", name: "Aatrox", cost: 5, traits: ["Void", "Heartsteel"], img: "⚔️" },
+                        { id: "braum", name: "Braum", cost: 3, traits: ["Heartsteel", "Bruiser"], img: "🛡️" },
+                        { id: "camille", name: "Camille", cost: 2, traits: ["Chemtech", "Enforcer"], img: "🤖" },
+                        { id: "chogath", name: "Cho'gath", cost: 4, traits: ["Void", "Bruiser"], img: "👹" },
+                        { id: "galio", name: "Galio", cost: 3, traits: ["Heartsteel", "Sentinel"], img: "🗿" },
+                        { id: "kassadin", name: "Kassadin", cost: 2, traits: ["Void", "Mystic"], img: "🌌" },
+                    ],
+                    traits: [
+                        { name: "Void", description: "Enemies take increased damage" },
+                        { name: "Heartsteel", description: "Gain bonus health and resistances" },
+                        { name: "Bruiser", description: "Gain health and durability" },
+                        { name: "Chemtech", description: "Poison and burn enemies" },
+                        { name: "Enforcer", description: "Reduce enemy damage and stun lockdowns" },
+                        { name: "Sentinel", description: "Block incoming damage" },
+                        { name: "Mystic", description: "Gain magic resistance" },
+                    ],
+                    metaComps: [
+                        { id: "heartsteel-tank", name: "Heartsteel Tank", rating: "S", winRate: 53.2, pickRate: 22.1, units: ["Aatrox", "Braum", "Galio"], description: "Tank-heavy composition with Heartsteel synergy providing massive health pools" },
+                    ]
+                },
+                {
+                    id: "set12",
+                    name: "Set 12: Inkborn Alliance (Rival)",
+                    number: 12,
+                    status: "rival",
+                    releaseDate: "2024-05-21",
+                    units: [
+                        { id: "samira", name: "Samira", cost: 4, traits: ["Inkborn", "Trickster"], img: "🎭" },
+                        { id: "sett", name: "Sett", cost: 3, traits: ["Inkborn", "Bruiser"], img: "👊" },
+                        { id: "ahri", name: "Ahri", cost: 3, traits: ["Inkborn", "Mystic"], img: "🦊" },
+                    ],
+                    traits: [
+                        { name: "Inkborn", description: "Gain critical strike chance and damage" },
+                        { name: "Trickster", description: "Dodge attacks periodically" },
+                        { name: "Bruiser", description: "Gain health" },
+                        { name: "Mystic", description: "Gain magic resistance" },
+                    ],
+                    metaComps: [
+                        { id: "inkborn-carry", name: "Inkborn Carry", rating: "S", winRate: 52.5, pickRate: 18.9, units: ["Samira", "Sett", "Ahri"], description: "High burst damage composition with Inkborn synergy" },
+                    ]
+                }
+            ]
+        };
+
+        // State
+        let currentSet = tftData.sets[0];
+        let currentTeam = [];
+        let savedTeams = JSON.parse(localStorage.getItem('tftTeams') || '[]');
+        let showingSavedTeams = true;
+
+        // Monitor online/offline
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+
+        function updateOnlineStatus() {
+            const badge = document.getElementById('statusBadge');
+            const text = document.getElementById('statusText');
+            if (navigator.onLine) {
+                badge.className = 'status-badge online';
+                text.textContent = 'Online';
+            } else {
+                badge.className = 'status-badge offline';
+                text.textContent = 'Offline (Local Data)';
+            }
+        }
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'sets') {
+                renderSets();
+            } else if (tabName === 'meta') {
+                loadMetaComps();
+            }
+        }
+
+        function changeSet() {
+            const setId = document.getElementById('setSelector').value;
+            currentSet = tftData.sets.find(s => s.id === setId);
+            renderUnitList();
+            renderTeamGrid();
+            populateTraitFilter();
+        }
+
+        function renderTeamGrid() {
+            const grid = document.getElementById('teamGrid');
+            grid.innerHTML = '';
+
+            for (let i = 0; i < 8; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'team-slot';
+                if (currentTeam[i]) {
+                    slot.classList.add('filled');
+                    slot.innerHTML = `
+                        <div class="unit-card">
+                            <div class="unit-emoji">${currentTeam[i].img}</div>
+                            <div class="unit-name">${currentTeam[i].name}</div>
+                            <div class="unit-cost">${currentTeam[i].cost}⭐</div>
+                        </div>
+                        <button class="delete-btn" onclick="deleteUnit(${i})">×</button>
+                    `;
+                } else {
+                    slot.innerHTML = '+';
+                }
+                grid.appendChild(slot);
+            }
+
+            document.getElementById('teamCount').textContent = currentTeam.length;
+            updateTraitSynergies();
+            updateCostSummary();
+        }
+
+        function renderUnitList() {
+            renderFiltered();
+            populateTraitFilter();
+        }
+
+        function populateTraitFilter() {
+            const filter = document.getElementById('traitFilter');
+            const currentValue = filter.value;
+            filter.innerHTML = '<option value="all">All Traits</option>';
+
+            const traits = [...new Set(currentSet.units.flatMap(u => u.traits))];
+            traits.forEach(trait => {
+                const option = document.createElement('option');
+                option.value = trait;
+                option.textContent = trait;
+                filter.appendChild(option);
+            });
+
+            filter.value = currentValue || 'all';
+        }
+
+        function filterUnits() {
+            renderFiltered();
+        }
+
+        function renderFiltered() {
+            const search = document.getElementById('searchBox').value.toLowerCase();
+            const trait = document.getElementById('traitFilter').value;
+
+            let units = currentSet.units;
+            if (trait !== 'all') {
+                units = units.filter(u => u.traits.includes(trait));
+            }
+            if (search) {
+                units = units.filter(u => u.name.toLowerCase().includes(search));
+            }
+
+            const list = document.getElementById('unitList');
+            list.innerHTML = '';
+
+            units.forEach(unit => {
+                const btn = document.createElement('button');
+                btn.className = 'unit-btn';
+                btn.disabled = currentTeam.length >= 8;
+                btn.onclick = () => addUnit(unit);
+                btn.innerHTML = `
+                    <span>${unit.img}</span>
+                    <div class="unit-btn-content">
+                        <div class="unit-btn-name">${unit.name}</div>
+                        <div class="unit-btn-traits">${unit.traits.join(', ')}</div>
+                    </div>
+                    <span class="unit-btn-cost">${unit.cost}⭐</span>
+                `;
+                list.appendChild(btn);
+            });
+        }
+
+        function addUnit(unit) {
+            if (currentTeam.length < 8) {
+                currentTeam.push({ ...unit });
+                renderTeamGrid();
+                renderUnitList();
+            }
+        }
+
+        function deleteUnit(index) {
+            currentTeam.splice(index, 1);
+            renderTeamGrid();
+            renderUnitList();
+        }
+
+        function updateTraitSynergies() {
+            const traits = {};
+            currentTeam.forEach(unit => {
+                unit.traits.forEach(trait => {
+                    traits[trait] = (traits[trait] || 0) + 1;
+                });
+            });
+
+            const traitsSection = document.getElementById('traitsSection');
+            const traitsList = document.getElementById('traitsList');
+
+            if (Object.keys(traits).length > 0) {
+                traitsSection.classList.remove('hidden');
+                traitsList.innerHTML = '';
+
+                Object.entries(traits)
+                    .sort((a, b) => b[1] - a[1])
+                    .forEach(([trait, count]) => {
+                        const badge = document.createElement('div');
+                        badge.className = 'trait-badge';
+                        badge.textContent = `${trait} ×${count}`;
+                        traitsList.appendChild(badge);
+                    });
+            } else {
+                traitsSection.classList.add('hidden');
+            }
+        }
+
+        function updateCostSummary() {
+            const costSummary = document.getElementById('costSummary');
+            const totalCost = currentTeam.reduce((sum, u) => sum + u.cost, 0);
+
+            if (currentTeam.length > 0) {
+                costSummary.classList.remove('hidden');
+                document.getElementById('totalCost').textContent = `${totalCost}`;
+            } else {
+                costSummary.classList.add('hidden');
+            }
+        }
+
+        function saveTeam() {
+            const name = document.getElementById('teamName').value;
+            if (!name || currentTeam.length === 0) {
+                alert('Please name your team and add at least one unit');
+                return;
+            }
+
+            const traits = {};
+            currentTeam.forEach(unit => {
+                unit.traits.forEach(trait => {
+                    traits[trait] = (traits[trait] || 0) + 1;
+                });
+            });
+
+            const newTeam = {
+                id: Date.now(),
+                name: name,
+                set: currentSet.id,
+                units: currentTeam,
+                traits: Object.entries(traits).map(([name, count]) => [name, count]),
+                timestamp: new Date().toLocaleDateString(),
+                cost: currentTeam.reduce((sum, u) => sum + u.cost, 0),
+            };
+
+            savedTeams.unshift(newTeam);
+            localStorage.setItem('tftTeams', JSON.stringify(savedTeams));
+
+            alert('✅ Team saved to your device!');
+            document.getElementById('teamName').value = '';
+            currentTeam = [];
+            renderTeamGrid();
+            renderSavedTeams();
+        }
+
+        function renderSavedTeams() {
+            const panel = document.getElementById('savedTeamsPanel');
+            const list = document.getElementById('savedTeamsList');
+
+            document.getElementById('teamCount2').textContent = savedTeams.length;
+
+            if (savedTeams.length === 0) {
+                panel.classList.add('hidden');
+                return;
+            }
+
+            panel.classList.remove('hidden');
+            list.innerHTML = '';
+
+            savedTeams.forEach(team => {
+                const item = document.createElement('div');
+                item.className = 'team-item';
+                item.innerHTML = `
+                    <div class="team-item-name">${team.name}</div>
+                    <div class="team-item-meta">
+                        <span>${team.units.length} units • ${team.cost}⭐</span>
+                    </div>
+                    <button class="team-item-delete" onclick="deleteTeam(${team.id})">Delete</button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function deleteTeam(id) {
+            if (confirm('Delete this team?')) {
+                savedTeams = savedTeams.filter(t => t.id !== id);
+                localStorage.setItem('tftTeams', JSON.stringify(savedTeams));
+                renderSavedTeams();
+            }
+        }
+
+        function toggleSavedTeams() {
+            showingSavedTeams = !showingSavedTeams;
+            document.getElementById('savedTeamsList').style.display = showingSavedTeams ? 'block' : 'none';
+        }
+
+        function loadMetaComps() {
+            const setId = document.getElementById('metaSetSelector').value;
+            const set = tftData.sets.find(s => s.id === setId);
+            const list = document.getElementById('metaList');
+            list.innerHTML = '';
+
+            set.metaComps.forEach(comp => {
+                const tierClass = `tier-${comp.rating.toLowerCase()}`;
+                const div = document.createElement('div');
+                div.className = 'meta-comp';
+                div.innerHTML = `
+                    <div style="overflow: auto;">
+                        <div class="tier-badge ${tierClass}">${comp.rating}</div>
+                        <div class="comp-name">${comp.name}</div>
+                        <div class="comp-units">Units: ${comp.units.join(', ')}</div>
+                        <div style="font-size: 0.75rem; color: #9ca3af; margin-top: 0.5rem;">${comp.description}</div>
+                        <div class="comp-stats" style="clear: both;">
+                            <span class="comp-wr">${comp.winRate}% WR</span>
+                            <span class="comp-pr">${comp.pickRate}% Pick</span>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function renderSets() {
+            const container = document.getElementById('setsContainer');
+            container.innerHTML = '';
+
+            tftData.sets.forEach(set => {
+                const div = document.createElement('div');
+                div.className = 'set-card';
+
+                const statusEmoji = set.status === 'current' ? '🔴' : set.status === 'legacy' ? '⏰' : '⚡';
+                const statusText = set.status === 'current' ? 'Currently Live' : set.status === 'legacy' ? 'Legacy Set' : 'Rival Set';
+
+                div.innerHTML = `
+                    <div class="set-header">
+                        <div>
+                            <h2>${set.name}</h2>
+                            <div class="set-status">${statusEmoji} ${statusText}</div>
+                        </div>
+                    </div>
+
+                    <div class="traits-grid">
+                        <h3>Traits (${set.traits.length})</h3>
+                        <div class="traits-grid-list">
+                            ${set.traits.map(t => `<div class="trait-tag" title="${t.description}">${t.name}</div>`).join('')}
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 style="font-size: 0.875rem; font-weight: 700; color: #d1d5db; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem;">Champions (${set.units.length})</h3>
+                        <div class="champions-grid">
+                            ${set.units.map(u => `
+                                <div class="champion-card">
+                                    <div class="champion-emoji">${u.img}</div>
+                                    <div class="champion-name">${u.name}</div>
+                                    <div class="champion-cost">${u.cost}⭐</div>
+                                    <div class="champion-traits">${u.traits.join(', ')}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(div);
+            });
+        }
+
+        // Initialize
+        updateOnlineStatus();
+        renderTeamGrid();
+        renderUnitList();
+        populateTraitFilter();
+        renderSavedTeams();
+    </script>
+</body>
+</html>
