@@ -7,84 +7,61 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="TFT Builder">
     <meta name="theme-color" content="#0a0e27">
-    <meta name="description" content="Offline TFT Set 16 Team Builder - Build teams, view meta, browse champions. Works offline.">
+    <meta name="description" content="TFT Set 16 Team Builder - Offline first, works on iPhone">
     
-    <!-- TFT Logo Icons for iPhone -->
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><style>.bg{fill:%230a0e27}.text{fill:%2306b6d4;font-family:Arial,sans-serif;font-weight:bold;font-size:80px;text-anchor:middle}.border{fill:none;stroke:%2306b6d4;stroke-width:3}</style></defs><rect width='180' height='180' class='bg'/><circle cx='90' cy='90' r='85' class='border'/><text x='90' y='125' class='text'>TFT</text></svg>">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><style>.bg{fill:%230a0e27}.text{fill:%2306b6d4;font-family:Arial,sans-serif;font-weight:bold;font-size:50px;text-anchor:middle}.border{fill:none;stroke:%2306b6d4;stroke-width:2}</style></defs><rect width='100' height='100' class='bg'/><circle cx='50' cy='50' r='45' class='border'/><text x='50' y='70' class='text'>TFT</text></svg>">
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="data:application/json,{%22name%22:%22TFT Team Builder%22,%22short_name%22:%22TFT Builder%22,%22description%22:%22Team Fight Tactics offline team builder%22,%22start_url%22:%22/%22,%22display%22:%22fullscreen%22,%22background_color%22:%22%230a0e27%22,%22theme_color%22:%22%230a0e27%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><style>.bg{fill:%230a0e27}.text{fill:%2306b6d4;font-family:Arial,sans-serif;font-weight:bold;font-size:96px;text-anchor:middle}.border{fill:none;stroke:%2306b6d4;stroke-width:4}</style></defs><rect width='192' height='192' class='bg'/><circle cx='96' cy='96' r='85' class='border'/><text x='96' y='140' class='text'>TFT</text></svg>%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any%22},{%22src%22:%22data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><style>.bg{fill:%230a0e27}.text{fill:%2306b6d4;font-family:Arial,sans-serif;font-weight:bold;font-size:256px;text-anchor:middle}.border{fill:none;stroke:%2306b6d4;stroke-width:12}</style></defs><rect width='512' height='512' class='bg'/><circle cx='256' cy='256' r='225' class='border'/><text x='256' y='370' class='text'>TFT</text></svg>%22,%22sizes%22:%22512x512%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any maskable%22}]}">
+    <link rel="manifest" href="data:application/json,{%22name%22:%22TFT Team Builder%22,%22short_name%22:%22TFT Builder%22,%22description%22:%22TFT offline team builder%22,%22display%22:%22fullscreen%22,%22background_color%22:%22%230a0e27%22,%22theme_color%22:%22%230a0e27%22}">
     
     <title>TFT Set 16 Team Builder</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
             min-height: 100vh;
             color: #fff;
+            padding-top: 60px;
         }
-
+        
         header {
-            border-bottom: 1px solid rgba(34, 211, 238, 0.2);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 50;
-            backdrop-filter: blur(10px);
-            background: rgba(0, 0, 0, 0.4);
-        }
-
-        .header-content {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 1rem 1.5rem;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.6);
+            border-bottom: 1px solid rgba(34, 211, 238, 0.3);
+            padding: 1rem;
+            z-index: 100;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
             flex-wrap: wrap;
         }
-
-        .logo-section {
+        
+        .header-left {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
         }
-
+        
         .logo {
             width: 40px;
             height: 40px;
+            border: 2px solid #06b6d4;
             border-radius: 50%;
-            background: transparent;
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid #06b6d4;
-            box-shadow: 0 0 15px rgba(34, 211, 238, 0.6);
-            font-weight: 900;
-            font-size: 14px;
+            font-weight: bold;
             color: #06b6d4;
-            font-family: Arial, sans-serif;
-        }
-
-        .logo::before {
-            content: 'TFT';
             font-size: 12px;
-            font-weight: 900;
-            letter-spacing: -1px;
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.6);
         }
-
+        
         .logo-text h1 {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 900;
             background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
             background-clip: text;
@@ -92,130 +69,84 @@
             -webkit-text-fill-color: transparent;
             margin: 0;
         }
-
-        .logo-text p {
-            font-size: 0.75rem;
-            color: #d1d5db;
-            font-weight: 300;
-            margin: 0;
-        }
-
-        .status-badge {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 0.75rem;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(34, 211, 238, 0.3);
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #4ade80;
-        }
-
+        
         .tabs {
             display: flex;
             gap: 0.5rem;
         }
-
+        
         .tab-btn {
             padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            border: none;
             background: transparent;
+            border: 1px solid rgba(34, 211, 238, 0.3);
             color: #9ca3af;
             cursor: pointer;
+            border-radius: 0.5rem;
             font-weight: 600;
             font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.3s;
         }
-
+        
         .tab-btn.active {
             background: rgba(34, 211, 238, 0.2);
             color: #06b6d4;
-            border: 1px solid rgba(34, 211, 238, 0.5);
+            border-color: rgba(34, 211, 238, 0.6);
         }
-
-        .tab-btn:hover:not(.active) {
-            color: #d1d5db;
-        }
-
-        main {
+        
+        .container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }
-
-        .container {
+            padding: 2rem 1rem;
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 2fr 1fr;
             gap: 2rem;
         }
-
-        @media (max-width: 1024px) {
+        
+        @media (max-width: 768px) {
             .container {
                 grid-template-columns: 1fr;
             }
+            header {
+                flex-direction: column;
+            }
         }
-
+        
         .card {
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(34, 211, 238, 0.3);
             border-radius: 0.75rem;
             padding: 1.5rem;
-            backdrop-filter: blur(10px);
         }
-
+        
         .card h2 {
             font-size: 1.125rem;
-            font-weight: 700;
             color: #06b6d4;
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
-
-        .set-selector {
-            margin-bottom: 1.5rem;
-        }
-
-        .set-selector label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: #d1d5db;
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        select, input {
+        
+        input, select {
             width: 100%;
-            padding: 0.75rem 1rem;
+            padding: 0.75rem;
             background: #111827;
             border: 1px solid rgba(34, 211, 238, 0.3);
             color: #fff;
             border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
             font-size: 1rem;
-            transition: all 0.3s;
         }
-
-        select:focus, input:focus {
+        
+        input:focus, select:focus {
             outline: none;
             border-color: #06b6d4;
             box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
         }
-
+        
         .team-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 0.5rem;
             margin: 1rem 0;
         }
-
+        
         .team-slot {
             aspect-ratio: 1;
             background: #1f2937;
@@ -225,102 +156,102 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding: 0.5rem;
+            text-align: center;
+            position: relative;
+            font-size: 0.75rem;
             cursor: pointer;
             transition: all 0.3s;
-            position: relative;
         }
-
+        
         .team-slot:hover {
             border-color: rgba(34, 211, 238, 0.5);
             background: #374151;
         }
-
+        
+        .team-slot.empty {
+            color: #4b5563;
+            font-size: 1.5rem;
+        }
+        
         .team-slot.filled {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(34, 211, 238, 0.2));
             border-color: rgba(34, 211, 238, 0.5);
         }
-
-        .team-slot:not(.filled) {
-            color: #4b5563;
-            font-size: 1.5rem;
-        }
-
-        .unit-card {
+        
+        .unit-info {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 0.25rem;
-            text-align: center;
-            font-size: 0.75rem;
+            justify-content: center;
         }
-
+        
         .unit-emoji {
             font-size: 1.5rem;
         }
-
+        
         .unit-name {
             color: #d1d5db;
             font-weight: 600;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
         }
-
+        
         .unit-cost {
             color: #fbbf24;
             font-weight: bold;
+            font-size: 0.75rem;
         }
-
+        
         .delete-btn {
             position: absolute;
-            top: 4px;
-            right: 4px;
+            top: 2px;
+            right: 2px;
             background: #dc2626;
-            border: none;
             color: #fff;
+            border: none;
             width: 20px;
             height: 20px;
             border-radius: 50%;
             cursor: pointer;
+            font-size: 0.75rem;
             opacity: 0;
             transition: opacity 0.3s;
-            font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
-
+        
         .team-slot.filled:hover .delete-btn {
             opacity: 1;
         }
-
+        
         .traits-section {
             margin-top: 1rem;
             padding-top: 1rem;
             border-top: 1px solid rgba(34, 211, 238, 0.2);
         }
-
+        
         .traits-section h3 {
             font-size: 0.75rem;
-            font-weight: 700;
             color: #9ca3af;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
             margin-bottom: 0.75rem;
         }
-
+        
         .traits-list {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
         }
-
+        
         .trait-badge {
             padding: 0.25rem 0.75rem;
             background: linear-gradient(135deg, rgba(147, 51, 234, 0.4), rgba(59, 130, 246, 0.4));
             border: 1px solid rgba(147, 51, 234, 0.6);
-            border-radius: 9999px;
+            border-radius: 999px;
             font-size: 0.75rem;
             font-weight: 600;
             color: #d8b4fe;
         }
-
+        
         .cost-summary {
             margin-top: 1rem;
             padding: 0.75rem;
@@ -329,56 +260,42 @@
             border-radius: 0.5rem;
             font-size: 0.875rem;
         }
-
-        .cost-summary span:last-child {
-            font-weight: bold;
-            color: #fbbf24;
-        }
-
-        button {
+        
+        button.action-btn {
             padding: 0.75rem 1rem;
             border: none;
             border-radius: 0.5rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
             width: 100%;
             margin-top: 1rem;
-        }
-
-        .save-btn {
             background: linear-gradient(135deg, #16a34a, #10b981);
             color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
         }
-
-        .save-btn:hover {
+        
+        button.action-btn:hover {
             background: linear-gradient(135deg, #15803d, #059669);
-            transform: scale(1.02);
         }
-
+        
         .search-box {
             display: flex;
             gap: 0.5rem;
             margin-bottom: 1rem;
         }
-
+        
         .search-box input {
             flex: 1;
+            margin-bottom: 0;
         }
-
+        
         .unit-list {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-            max-height: 400px;
+            max-height: 500px;
             overflow-y: auto;
         }
-
+        
         .unit-btn {
             padding: 0.75rem;
             background: #1f2937;
@@ -392,206 +309,170 @@
             align-items: center;
             gap: 0.75rem;
             width: 100%;
+            font-size: 0.875rem;
         }
-
+        
         .unit-btn:hover {
             background: #374151;
             border-color: rgba(59, 130, 246, 0.6);
         }
-
+        
         .unit-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-
+        
         .unit-btn-content {
             flex: 1;
         }
-
+        
         .unit-btn-name {
             font-weight: 600;
             color: #fff;
-            font-size: 0.875rem;
         }
-
+        
         .unit-btn-traits {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #9ca3af;
-            margin-top: 0.25rem;
         }
-
+        
         .unit-btn-cost {
             color: #fbbf24;
             font-weight: bold;
         }
-
+        
         .meta-comp {
             padding: 1rem;
             background: rgba(217, 119, 6, 0.1);
             border: 1px solid rgba(217, 119, 6, 0.2);
             border-radius: 0.5rem;
             margin-bottom: 0.75rem;
-            transition: all 0.3s;
         }
-
-        .meta-comp:hover {
-            border-color: rgba(217, 119, 6, 0.5);
-        }
-
+        
         .tier-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            display: inline-block;
             width: 40px;
             height: 40px;
+            text-align: center;
+            line-height: 40px;
             font-weight: bold;
-            font-size: 1rem;
-            border-radius: 0.5rem;
             color: #fff;
-            margin-right: 0.75rem;
+            border-radius: 0.5rem;
             float: left;
+            margin-right: 0.75rem;
         }
-
+        
         .tier-s { background: #FFD700; color: #000; }
         .tier-a { background: #C0C0C0; color: #000; }
         .tier-b { background: #CD7F32; color: #fff; }
-
+        
         .comp-name {
             font-weight: bold;
             color: #fff;
-            margin-bottom: 0.25rem;
         }
-
+        
         .comp-units {
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             color: #d1d5db;
-            margin-bottom: 0.5rem;
+            margin-top: 0.25rem;
         }
-
+        
+        .comp-desc {
+            font-size: 0.8rem;
+            color: #d1d5db;
+            margin-top: 0.5rem;
+        }
+        
         .comp-stats {
             display: flex;
             justify-content: space-between;
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             margin-top: 0.5rem;
             clear: both;
         }
-
+        
         .comp-wr { color: #4ade80; font-weight: 600; }
         .comp-pr { color: #9ca3af; }
-
+        
         .tab-content {
             display: none;
         }
-
+        
         .tab-content.active {
             display: block;
         }
-
+        
         .hidden {
             display: none !important;
         }
-
-        .info-note {
+        
+        .item-card {
+            padding: 0.75rem;
             background: rgba(59, 130, 246, 0.1);
             border: 1px solid rgba(59, 130, 246, 0.3);
-            padding: 1rem;
             border-radius: 0.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             font-size: 0.875rem;
-            color: #d1d5db;
         }
-
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-
-            .tabs {
-                width: 100%;
-                flex-wrap: wrap;
-            }
-
-            .tab-btn {
-                flex: 1;
-                min-width: 80px;
-            }
-
-            main {
-                padding-bottom: 2rem;
-            }
+        
+        .item-name {
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .item-desc {
+            color: #d1d5db;
+            margin-top: 0.25rem;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="header-content">
-            <div class="logo-section">
-                <div class="logo"></div>
-                <div class="logo-text">
-                    <h1>⚔️ TFT</h1>
-                    <p>Set 16: Lore & Legends</p>
-                </div>
+        <div class="header-left">
+            <div class="logo">TFT</div>
+            <div>
+                <div class="logo-text"><h1>⚔️ TFT</h1></div>
             </div>
-
-            <div class="status-badge">
-                ✓ Offline Ready
-            </div>
-
-            <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('builder')">🛠️ Builder</button>
-                <button class="tab-btn" onclick="switchTab('meta')">📊 Meta</button>
-                <button class="tab-btn" onclick="switchTab('items')">🔧 Items</button>
-            </div>
+        </div>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('builder')">🛠️ Builder</button>
+            <button class="tab-btn" onclick="switchTab('meta')">📊 Meta</button>
+            <button class="tab-btn" onclick="switchTab('items')">🔧 Items</button>
         </div>
     </header>
 
     <main>
         <!-- Builder Tab -->
         <div id="builder" class="tab-content active">
-            <div class="info-note">
-                📊 TFT Set 16: Lore & Legends - Complete verified data from tftset16.com and Mobalytics
-            </div>
-
             <div class="container">
-                <!-- Team Builder Column -->
-                <div style="grid-column: span 2;">
+                <!-- Team Builder -->
+                <div>
                     <div class="card">
                         <h2>👥 Your Team (<span id="teamCount">0</span>/8)</h2>
-
-                        <input type="text" id="teamName" placeholder="Team name (e.g., 'Reaper God-King')" style="margin-bottom: 1rem;">
-
+                        <input type="text" id="teamName" placeholder="Team name...">
                         <div class="team-grid" id="teamGrid"></div>
-
                         <div class="traits-section hidden" id="traitsSection">
                             <h3>Trait Synergies</h3>
                             <div class="traits-list" id="traitsList"></div>
                         </div>
-
                         <div class="cost-summary hidden" id="costSummary">
-                            Total Unit Cost: <span id="totalCost">0</span> ⭐
+                            Total Cost: <span id="totalCost">0</span>⭐
                         </div>
-
-                        <button class="save-btn" onclick="saveTeam()">💾 Save Team to Device</button>
+                        <button class="action-btn" onclick="saveTeam()">💾 Save Team</button>
                     </div>
                 </div>
 
-                <!-- Unit Library Column -->
+                <!-- Unit Library -->
                 <div>
                     <div class="card">
-                        <h2>Unit Library</h2>
-
+                        <h2>⚔️ Units</h2>
                         <div class="search-box">
-                            <input type="text" id="searchBox" placeholder="Search units..." onkeyup="filterUnits()">
+                            <input type="text" id="searchBox" placeholder="Search..." onkeyup="filterUnits()">
                         </div>
-
-                        <div style="margin-bottom: 1rem;">
-                            <label style="display: block; font-size: 0.875rem; font-weight: 600; color: #d1d5db; margin-bottom: 0.75rem; text-transform: uppercase;">Filter by Trait</label>
-                            <select id="traitFilter" onchange="filterUnits()">
-                                <option value="all">All Traits</option>
-                            </select>
-                        </div>
-
+                        <select id="traitFilter" onchange="filterUnits()">
+                            <option value="all">All Traits</option>
+                        </select>
                         <div class="unit-list" id="unitList"></div>
                     </div>
                 </div>
@@ -600,282 +481,181 @@
 
         <!-- Meta Tab -->
         <div id="meta" class="tab-content">
-            <div class="card">
-                <h2>📊 Meta Tier List - Set 16</h2>
-                <div id="metaList"></div>
+            <div class="container" style="grid-template-columns: 1fr;">
+                <div class="card">
+                    <h2>📊 Meta Tier List</h2>
+                    <div id="metaList"></div>
+                </div>
             </div>
         </div>
 
         <!-- Items Tab -->
         <div id="items" class="tab-content">
-            <div class="card">
-                <h2>🔧 Items Guide</h2>
-                <div id="itemsList"></div>
+            <div class="container" style="grid-template-columns: 1fr;">
+                <div class="card">
+                    <h2>🔧 Items (Set 16)</h2>
+                    <div id="itemsList"></div>
+                </div>
             </div>
         </div>
     </main>
 
     <script>
-        // ===== COMPLETE SET 16 DATA (Verified from tftset16.com) =====
+        // TFT SET 16 DATA - Verified from tftset16.com
         const tftData = {
-            lastUpdated: "2025-03-30T00:00:00.000Z",
-            set: {
-                id: "set16",
-                name: "Set 16: Lore & Legends",
-                number: 16,
-                status: "current",
-                releaseDate: "2025-02-19"
-            },
             champions: [
-                // 1-COST CHAMPIONS
-                { id: "anivia", name: "Anivia", cost: 1, traits: ["Freljord", "Invoker"], img: "❄️" },
-                { id: "blitzcrank", name: "Blitzcrank", cost: 1, traits: ["Zaun", "Juggernaut"], img: "🤖" },
-                { id: "briar", name: "Briar", cost: 1, traits: ["Noxus", "Juggernaut", "Slayer"], img: "🪛" },
-                { id: "caitlyn", name: "Caitlyn", cost: 1, traits: ["Piltover", "Longshot"], img: "🔫" },
-                { id: "illaoi", name: "Illaoi", cost: 1, traits: ["Bilgewater", "Bruiser"], img: "🧿" },
-                { id: "jarvan", name: "Jarvan IV", cost: 1, traits: ["Demacia", "Defender"], img: "🛡️" },
-                { id: "jhin", name: "Jhin", cost: 1, traits: ["Ionia", "Gunslinger"], img: "🎭" },
-                { id: "kogmaw", name: "Kog'Maw", cost: 1, traits: ["Void", "Arcanist", "Longshot"], img: "👾" },
-                { id: "lulu", name: "Lulu", cost: 1, traits: ["Yordle", "Arcanist"], img: "✨" },
-                { id: "qiyana", name: "Qiyana", cost: 1, traits: ["Ixtal", "Slayer"], img: "⚡" },
-                { id: "rumble", name: "Rumble", cost: 1, traits: ["Yordle", "Defender"], img: "🔥" },
-                { id: "shen", name: "Shen", cost: 1, traits: ["Ionia", "Bruiser"], img: "☯️" },
-                { id: "sona", name: "Sona", cost: 1, traits: ["Demacia", "Invoker"], img: "🎵" },
-                { id: "viego", name: "Viego", cost: 1, traits: ["Shadow Isles", "Quickstriker"], img: "💀" },
-
-                // 2-COST CHAMPIONS
-                { id: "aphelios", name: "Aphelios", cost: 2, traits: ["Targon"], img: "🌙" },
-                { id: "ashe", name: "Ashe", cost: 2, traits: ["Freljord", "Quickstriker"], img: "❄️" },
-                { id: "chogath", name: "Cho'gath", cost: 2, traits: ["Void", "Juggernaut"], img: "👹" },
-                { id: "ekko", name: "Ekko", cost: 2, traits: ["Zaun", "Disruptor"], img: "⏰" },
-                { id: "graves", name: "Graves", cost: 2, traits: ["Bilgewater", "Gunslinger"], img: "🔫" },
-                { id: "neeko", name: "Neeko", cost: 2, traits: ["Ixtal", "Arcanist", "Defender"], img: "🦎" },
-                { id: "orianna", name: "Orianna", cost: 2, traits: ["Piltover", "Invoker"], img: "⭕" },
-                { id: "poppy", name: "Poppy", cost: 2, traits: ["Demacia", "Yordle", "Juggernaut"], img: "🛡️" },
-                { id: "reksai", name: "Rek'Sai", cost: 2, traits: ["Void", "Vanquisher"], img: "🦑" },
-                { id: "sion", name: "Sion", cost: 2, traits: ["Noxus", "Bruiser"], img: "⚔️" },
-                { id: "teemo", name: "Teemo", cost: 2, traits: ["Yordle", "Longshot"], img: "🐹" },
-                { id: "tristana", name: "Tristana", cost: 2, traits: ["Yordle", "Gunslinger"], img: "🎪" },
-                { id: "twistedfate", name: "Twisted Fate", cost: 2, traits: ["Bilgewater", "Quickstriker"], img: "🃏" },
-                { id: "vi", name: "Vi", cost: 2, traits: ["Piltover", "Zaun", "Defender"], img: "👊" },
-                { id: "xinzhao", name: "Xin Zhao", cost: 2, traits: ["Demacia", "Ionia", "Warden"], img: "⚡" },
-                { id: "yasuo", name: "Yasuo", cost: 2, traits: ["Ionia", "Slayer"], img: "🌪️" },
-                { id: "yorick", name: "Yorick", cost: 2, traits: ["Shadow Isles", "Warden"], img: "⚰️" },
-
-                // 3-COST CHAMPIONS
-                { id: "ahri", name: "Ahri", cost: 3, traits: ["Ionia", "Arcanist"], img: "🦊" },
-                { id: "darius", name: "Darius", cost: 3, traits: ["Noxus", "Defender"], img: "🩸" },
-                { id: "drmundo", name: "Dr Mundo", cost: 3, traits: ["Zaun", "Bruiser"], img: "🧪" },
-                { id: "draven", name: "Draven", cost: 3, traits: ["Noxus", "Quickstriker"], img: "🪓" },
-                { id: "gangplank", name: "Gangplank", cost: 3, traits: ["Bilgewater", "Slayer", "Vanquisher"], img: "🏴‍☠️" },
-                { id: "gwen", name: "Gwen", cost: 3, traits: ["Shadow Isles", "Disruptor"], img: "✂️" },
-                { id: "jinx", name: "Jinx", cost: 3, traits: ["Zaun", "Gunslinger"], img: "💥" },
-                { id: "kennen", name: "Kennen", cost: 3, traits: ["Ionia", "Yordle", "Defender"], img: "⚡" },
-                { id: "leblanc", name: "Leblanc", cost: 3, traits: ["Noxus", "Invoker"], img: "✨" },
-                { id: "leona", name: "Leona", cost: 3, traits: ["Targon"], img: "☀️" },
-                { id: "loris", name: "Loris", cost: 3, traits: ["Piltover", "Warden"], img: "🔧" },
-                { id: "malzahar", name: "Malzahar", cost: 3, traits: ["Void", "Disruptor"], img: "🌌" },
-                { id: "milio", name: "Milio", cost: 3, traits: ["Ixtal", "Invoker"], img: "🔥" },
-                { id: "nautilus", name: "Nautilus", cost: 3, traits: ["Bilgewater", "Juggernaut", "Warden"], img: "⚓" },
-                { id: "sejuani", name: "Sejuani", cost: 3, traits: ["Freljord", "Defender"], img: "❄️" },
-                { id: "vayne", name: "Vayne", cost: 3, traits: ["Demacia", "Longshot"], img: "🏹" },
-                { id: "zoe", name: "Zoe", cost: 3, traits: ["Targon"], img: "💫" },
-
-                // 4-COST CHAMPIONS
-                { id: "ambessa", name: "Ambessa", cost: 4, traits: ["Noxus", "Vanquisher"], img: "⚔️" },
-                { id: "belveth", name: "Belveth", cost: 4, traits: ["Void", "Slayer"], img: "🌀" },
-                { id: "braum", name: "Braum", cost: 4, traits: ["Freljord", "Warden"], img: "🛡️" },
-                { id: "diana", name: "Diana", cost: 4, traits: ["Targon"], img: "🌙" },
-                { id: "fizz", name: "Fizz", cost: 4, traits: ["Bilgewater", "Yordle"], img: "🐟" },
-                { id: "garen", name: "Garen", cost: 4, traits: ["Demacia", "Defender"], img: "⚔️" },
-                { id: "kaisa", name: "Kai'Sa", cost: 4, traits: ["Assimilator", "Void", "Longshot"], img: "🌌" },
-                { id: "kalista", name: "Kalista", cost: 4, traits: ["Shadow Isles", "Vanquisher"], img: "🏹" },
-                { id: "lissandra", name: "Lissandra", cost: 4, traits: ["Freljord", "Invoker"], img: "❄️" },
-                { id: "lux", name: "Lux", cost: 4, traits: ["Demacia", "Arcanist"], img: "✨" },
-                { id: "missfortune", name: "Miss Fortune", cost: 4, traits: ["Bilgewater", "Gunslinger"], img: "🔫" },
-                { id: "nasus", name: "Nasus", cost: 4, traits: ["Shurima"], img: "🐕" },
-                { id: "nidalee", name: "Nidalee", cost: 4, traits: ["Ixtal", "Huntress"], img: "🐾" },
-                { id: "renekton", name: "Renekton", cost: 4, traits: ["Shurima"], img: "🐊" },
-                { id: "riftherald", name: "Rift Herald", cost: 4, traits: ["Void", "Bruiser"], img: "👹" },
-                { id: "seraphine", name: "Seraphine", cost: 4, traits: ["Piltover", "Disruptor"], img: "🎵" },
-                { id: "singed", name: "Singed", cost: 4, traits: ["Zaun", "Juggernaut"], img: "🧪" },
-                { id: "skarner", name: "Skarner", cost: 4, traits: ["Ixtal"], img: "🦂" },
-                { id: "swain", name: "Swain", cost: 4, traits: ["Noxus", "Arcanist", "Juggernaut"], img: "🦅" },
-                { id: "taric", name: "Taric", cost: 4, traits: ["Targon"], img: "💎" },
-                { id: "veigar", name: "Veigar", cost: 4, traits: ["Yordle", "Arcanist"], img: "👨‍🔬" },
-                { id: "warwick", name: "Warwick", cost: 4, traits: ["Zaun", "Quickstriker"], img: "🐺" },
-                { id: "wukong", name: "Wukong", cost: 4, traits: ["Ionia", "Bruiser"], img: "🐵" },
-                { id: "yone", name: "Yone", cost: 4, traits: ["Ionia", "Slayer"], img: "⚔️" },
-                { id: "yunara", name: "Yunara", cost: 4, traits: ["Ionia", "Quickstriker"], img: "🌸" },
-
-                // 5-COST CHAMPIONS
-                { id: "aatrox", name: "Aatrox", cost: 5, traits: ["Darkin", "World Ender", "Slayer"], img: "⚔️" },
-                { id: "annie", name: "Annie", cost: 5, traits: ["Dark Child", "Arcanist"], img: "👧" },
-                { id: "azir", name: "Azir", cost: 5, traits: ["Emperor", "Shurima", "Disruptor"], img: "👑" },
-                { id: "fiddlesticks", name: "Fiddlesticks", cost: 5, traits: ["Harvester", "Vanquisher"], img: "👹" },
-                { id: "galio", name: "Galio", cost: 5, traits: ["Demacia", "Heroic"], img: "🗿" },
-                { id: "kindred", name: "Kindred", cost: 5, traits: ["Eternal", "Quickstriker"], img: "👼" },
-                { id: "luciansenna", name: "Lucian & Senna", cost: 5, traits: ["Soulbound", "Gunslinger"], img: "👫" },
-                { id: "mel", name: "Mel", cost: 5, traits: ["Noxus", "Disruptor"], img: "👑" },
-                { id: "ornn", name: "Ornn", cost: 5, traits: ["Blacksmith", "Warden"], img: "⚒️" },
-                { id: "sett", name: "Sett", cost: 5, traits: ["Ionia", "The Boss"], img: "👊" },
-                { id: "shyvana", name: "Shyvana", cost: 5, traits: ["Dragonborn", "Juggernaut"], img: "🐉" },
-                { id: "thex", name: "T-Hex", cost: 5, traits: ["Hex Mech", "Piltover", "Gunslinger"], img: "🤖" },
-                { id: "tahmkench", name: "Tahm Kench", cost: 5, traits: ["Bilgewater", "Glutton", "Bruiser"], img: "🐸" },
-                { id: "thresh", name: "Thresh", cost: 5, traits: ["Shadow Isles", "Warden"], img: "⛓️" },
-                { id: "volibear", name: "Volibear", cost: 5, traits: ["Freljord", "Bruiser"], img: "🐻" },
-                { id: "xerath", name: "Xerath", cost: 5, traits: ["Shurima", "Ascendant"], img: "✨" },
-                { id: "ziggs", name: "Ziggs", cost: 5, traits: ["Yordle", "Zaun", "Longshot"], img: "💣" },
-                { id: "zilean", name: "Zilean", cost: 5, traits: ["Chronokeeper", "Invoker"], img: "⏱️" },
-
-                // 7-COST CHAMPIONS
-                { id: "aurelionsol", name: "Aurelion Sol", cost: 7, traits: ["Targon", "Star Forger"], img: "⭐" },
-                { id: "baronnashor", name: "Baron Nashor", cost: 7, traits: ["Void", "Riftscourge"], img: "👑" },
-                { id: "brock", name: "Brock", cost: 7, traits: ["Ixtal"], img: "🪨" },
-                { id: "ryze", name: "Ryze", cost: 7, traits: ["Rune Mage"], img: "📜" },
-                { id: "sylas", name: "Sylas", cost: 7, traits: ["Chainbreaker", "Arcanist", "Defender"], img: "⛓️" },
-                { id: "zaahen", name: "Zaahen", cost: 7, traits: ["Darkin", "Immortal"], img: "⚔️" },
+                // 1-COST
+                { id: 1, name: "Anivia", cost: 1, traits: ["Freljord", "Invoker"], img: "❄️" },
+                { id: 2, name: "Blitzcrank", cost: 1, traits: ["Zaun", "Juggernaut"], img: "🤖" },
+                { id: 3, name: "Briar", cost: 1, traits: ["Noxus", "Juggernaut", "Slayer"], img: "🪛" },
+                { id: 4, name: "Caitlyn", cost: 1, traits: ["Piltover", "Longshot"], img: "🔫" },
+                { id: 5, name: "Illaoi", cost: 1, traits: ["Bilgewater", "Bruiser"], img: "🧿" },
+                { id: 6, name: "Jarvan IV", cost: 1, traits: ["Demacia", "Defender"], img: "🛡️" },
+                { id: 7, name: "Jhin", cost: 1, traits: ["Ionia", "Gunslinger"], img: "🎭" },
+                { id: 8, name: "Kog'Maw", cost: 1, traits: ["Void", "Arcanist", "Longshot"], img: "👾" },
+                { id: 9, name: "Lulu", cost: 1, traits: ["Yordle", "Arcanist"], img: "✨" },
+                { id: 10, name: "Qiyana", cost: 1, traits: ["Ixtal", "Slayer"], img: "⚡" },
+                { id: 11, name: "Rumble", cost: 1, traits: ["Yordle", "Defender"], img: "🔥" },
+                { id: 12, name: "Shen", cost: 1, traits: ["Ionia", "Bruiser"], img: "☯️" },
+                { id: 13, name: "Sona", cost: 1, traits: ["Demacia", "Invoker"], img: "🎵" },
+                { id: 14, name: "Viego", cost: 1, traits: ["Shadow Isles", "Quickstriker"], img: "💀" },
+                
+                // 2-COST
+                { id: 15, name: "Aphelios", cost: 2, traits: ["Targon"], img: "🌙" },
+                { id: 16, name: "Ashe", cost: 2, traits: ["Freljord", "Quickstriker"], img: "❄️" },
+                { id: 17, name: "Chogath", cost: 2, traits: ["Void", "Juggernaut"], img: "👹" },
+                { id: 18, name: "Ekko", cost: 2, traits: ["Zaun", "Disruptor"], img: "⏰" },
+                { id: 19, name: "Graves", cost: 2, traits: ["Bilgewater", "Gunslinger"], img: "🔫" },
+                { id: 20, name: "Neeko", cost: 2, traits: ["Ixtal", "Arcanist", "Defender"], img: "🦎" },
+                { id: 21, name: "Orianna", cost: 2, traits: ["Piltover", "Invoker"], img: "⭕" },
+                { id: 22, name: "Poppy", cost: 2, traits: ["Demacia", "Yordle", "Juggernaut"], img: "🛡️" },
+                { id: 23, name: "Rek'Sai", cost: 2, traits: ["Void", "Vanquisher"], img: "🦑" },
+                { id: 24, name: "Sion", cost: 2, traits: ["Noxus", "Bruiser"], img: "⚔️" },
+                { id: 25, name: "Teemo", cost: 2, traits: ["Yordle", "Longshot"], img: "🐹" },
+                { id: 26, name: "Tristana", cost: 2, traits: ["Yordle", "Gunslinger"], img: "🎪" },
+                { id: 27, name: "Twisted Fate", cost: 2, traits: ["Bilgewater", "Quickstriker"], img: "🃏" },
+                { id: 28, name: "Vi", cost: 2, traits: ["Piltover", "Zaun", "Defender"], img: "👊" },
+                { id: 29, name: "Xin Zhao", cost: 2, traits: ["Demacia", "Ionia", "Warden"], img: "⚡" },
+                { id: 30, name: "Yasuo", cost: 2, traits: ["Ionia", "Slayer"], img: "🌪️" },
+                { id: 31, name: "Yorick", cost: 2, traits: ["Shadow Isles", "Warden"], img: "⚰️" },
+                
+                // 3-COST
+                { id: 32, name: "Ahri", cost: 3, traits: ["Ionia", "Arcanist"], img: "🦊" },
+                { id: 33, name: "Darius", cost: 3, traits: ["Noxus", "Defender"], img: "🩸" },
+                { id: 34, name: "Dr Mundo", cost: 3, traits: ["Zaun", "Bruiser"], img: "🧪" },
+                { id: 35, name: "Draven", cost: 3, traits: ["Noxus", "Quickstriker"], img: "🪓" },
+                { id: 36, name: "Gangplank", cost: 3, traits: ["Bilgewater", "Slayer", "Vanquisher"], img: "🏴" },
+                { id: 37, name: "Gwen", cost: 3, traits: ["Shadow Isles", "Disruptor"], img: "✂️" },
+                { id: 38, name: "Jinx", cost: 3, traits: ["Zaun", "Gunslinger"], img: "💥" },
+                { id: 39, name: "Kennen", cost: 3, traits: ["Ionia", "Yordle", "Defender"], img: "⚡" },
+                { id: 40, name: "Leblanc", cost: 3, traits: ["Noxus", "Invoker"], img: "✨" },
+                { id: 41, name: "Leona", cost: 3, traits: ["Targon"], img: "☀️" },
+                { id: 42, name: "Loris", cost: 3, traits: ["Piltover", "Warden"], img: "🔧" },
+                { id: 43, name: "Malzahar", cost: 3, traits: ["Void", "Disruptor"], img: "🌌" },
+                { id: 44, name: "Milio", cost: 3, traits: ["Ixtal", "Invoker"], img: "🔥" },
+                { id: 45, name: "Nautilus", cost: 3, traits: ["Bilgewater", "Juggernaut", "Warden"], img: "⚓" },
+                { id: 46, name: "Sejuani", cost: 3, traits: ["Freljord", "Defender"], img: "❄️" },
+                { id: 47, name: "Vayne", cost: 3, traits: ["Demacia", "Longshot"], img: "🏹" },
+                { id: 48, name: "Zoe", cost: 3, traits: ["Targon"], img: "💫" },
+                
+                // 4-COST
+                { id: 49, name: "Ambessa", cost: 4, traits: ["Noxus", "Vanquisher"], img: "⚔️" },
+                { id: 50, name: "Belveth", cost: 4, traits: ["Void", "Slayer"], img: "🌀" },
+                { id: 51, name: "Braum", cost: 4, traits: ["Freljord", "Warden"], img: "🛡️" },
+                { id: 52, name: "Diana", cost: 4, traits: ["Targon"], img: "🌙" },
+                { id: 53, name: "Fizz", cost: 4, traits: ["Bilgewater", "Yordle"], img: "🐟" },
+                { id: 54, name: "Garen", cost: 4, traits: ["Demacia", "Defender"], img: "⚔️" },
+                { id: 55, name: "Kai'Sa", cost: 4, traits: ["Void", "Longshot"], img: "🌌" },
+                { id: 56, name: "Kalista", cost: 4, traits: ["Shadow Isles", "Vanquisher"], img: "🏹" },
+                { id: 57, name: "Lissandra", cost: 4, traits: ["Freljord", "Invoker"], img: "❄️" },
+                { id: 58, name: "Lux", cost: 4, traits: ["Demacia", "Arcanist"], img: "✨" },
+                { id: 59, name: "Miss Fortune", cost: 4, traits: ["Bilgewater", "Gunslinger"], img: "🔫" },
+                { id: 60, name: "Nasus", cost: 4, traits: ["Shurima"], img: "🐕" },
+                { id: 61, name: "Nidalee", cost: 4, traits: ["Ixtal"], img: "🐾" },
+                { id: 62, name: "Renekton", cost: 4, traits: ["Shurima"], img: "🐊" },
+                { id: 63, name: "Rift Herald", cost: 4, traits: ["Void", "Bruiser"], img: "👹" },
+                { id: 64, name: "Seraphine", cost: 4, traits: ["Piltover", "Disruptor"], img: "🎵" },
+                { id: 65, name: "Singed", cost: 4, traits: ["Zaun", "Juggernaut"], img: "🧪" },
+                { id: 66, name: "Skarner", cost: 4, traits: ["Ixtal"], img: "🦂" },
+                { id: 67, name: "Swain", cost: 4, traits: ["Noxus", "Arcanist", "Juggernaut"], img: "🦅" },
+                { id: 68, name: "Taric", cost: 4, traits: ["Targon"], img: "💎" },
+                { id: 69, name: "Veigar", cost: 4, traits: ["Yordle", "Arcanist"], img: "🧙" },
+                { id: 70, name: "Warwick", cost: 4, traits: ["Zaun", "Quickstriker"], img: "🐺" },
+                { id: 71, name: "Wukong", cost: 4, traits: ["Ionia", "Bruiser"], img: "🐵" },
+                { id: 72, name: "Yone", cost: 4, traits: ["Ionia", "Slayer"], img: "⚔️" },
+                { id: 73, name: "Yunara", cost: 4, traits: ["Ionia", "Quickstriker"], img: "🌸" },
+                
+                // 5-COST
+                { id: 74, name: "Aatrox", cost: 5, traits: ["Darkin", "World Ender", "Slayer"], img: "⚔️" },
+                { id: 75, name: "Annie", cost: 5, traits: ["Dark Child", "Arcanist"], img: "👧" },
+                { id: 76, name: "Azir", cost: 5, traits: ["Emperor", "Shurima", "Disruptor"], img: "👑" },
+                { id: 77, name: "Fiddlesticks", cost: 5, traits: ["Harvester", "Vanquisher"], img: "👹" },
+                { id: 78, name: "Galio", cost: 5, traits: ["Demacia", "Heroic"], img: "🗿" },
+                { id: 79, name: "Kindred", cost: 5, traits: ["Eternal", "Quickstriker"], img: "👼" },
+                { id: 80, name: "Lucian & Senna", cost: 5, traits: ["Soulbound", "Gunslinger"], img: "👫" },
+                { id: 81, name: "Mel", cost: 5, traits: ["Noxus", "Disruptor"], img: "👑" },
+                { id: 82, name: "Ornn", cost: 5, traits: ["Blacksmith", "Warden"], img: "⚒️" },
+                { id: 83, name: "Sett", cost: 5, traits: ["Ionia", "The Boss"], img: "👊" },
+                { id: 84, name: "Shyvana", cost: 5, traits: ["Dragonborn", "Juggernaut"], img: "🐉" },
+                { id: 85, name: "T-Hex", cost: 5, traits: ["Hex Mech", "Piltover", "Gunslinger"], img: "🤖" },
+                { id: 86, name: "Tahm Kench", cost: 5, traits: ["Bilgewater", "Glutton", "Bruiser"], img: "🐸" },
+                { id: 87, name: "Thresh", cost: 5, traits: ["Shadow Isles", "Warden"], img: "⛓️" },
+                { id: 88, name: "Volibear", cost: 5, traits: ["Freljord", "Bruiser"], img: "🐻" },
+                { id: 89, name: "Xerath", cost: 5, traits: ["Shurima", "Ascendant"], img: "✨" },
+                { id: 90, name: "Ziggs", cost: 5, traits: ["Yordle", "Zaun", "Longshot"], img: "💣" },
+                { id: 91, name: "Zilean", cost: 5, traits: ["Chronokeeper", "Invoker"], img: "⏱️" },
+                
+                // 7-COST
+                { id: 92, name: "Aurelion Sol", cost: 7, traits: ["Targon", "Star Forger"], img: "⭐" },
+                { id: 93, name: "Baron Nashor", cost: 7, traits: ["Void", "Riftscourge"], img: "👑" },
+                { id: 94, name: "Brock", cost: 7, traits: ["Ixtal"], img: "🪨" },
+                { id: 95, name: "Ryze", cost: 7, traits: ["Rune Mage"], img: "📜" },
+                { id: 96, name: "Sylas", cost: 7, traits: ["Chainbreaker", "Arcanist", "Defender"], img: "⛓️" },
+                { id: 97, name: "Zaahen", cost: 7, traits: ["Darkin", "Immortal"], img: "⚔️" },
             ],
             traits: [
-                { name: "Arcanist", description: "Cast ability grants Ability Power every 5 seconds" },
-                { name: "Assassin", description: "Leap to backline on combat start" },
-                { name: "Bilgewater", description: "Start combat with treasure" },
-                { name: "Bruiser", description: "Gain Health and Armor" },
-                { name: "Defender", description: "Gain Armor" },
-                { name: "Demacia", description: "Gain Armor and Health" },
-                { name: "Disruptor", description: "Abilities deal bonus damage" },
-                { name: "Duelist", description: "Gain Critical Strike" },
-                { name: "Freljord", description: "Chill enemies on hit" },
-                { name: "Gunslinger", description: "Gain Attack Damage" },
-                { name: "Invoker", description: "Gain Ability Power and Mana" },
-                { name: "Ionia", description: "Gain Armor and Magic Resist" },
-                { name: "Ixtal", description: "Gain Clues and unlock benefits" },
-                { name: "Juggernaut", description: "Gain Health per kill" },
-                { name: "Longshot", description: "Gain Attack Range" },
-                { name: "Noxus", description: "Gain Attack Damage" },
-                { name: "Piltover", description: "Gain Ability Power" },
-                { name: "Quickstriker", description: "Attack faster on takedown" },
-                { name: "Shadow Isles", description: "Collect Souls for benefits" },
-                { name: "Shurima", description: "Ascend units for power" },
-                { name: "Slayer", description: "Gain Attack Damage" },
-                { name: "Targon", description: "Gain Celestial benefits" },
-                { name: "Void", description: "Deal bonus damage" },
-                { name: "Warden", description: "Provide shields to allies" },
-                { name: "Zaun", description: "Gain Attack Speed" },
-                { name: "Yordle", description: "Gain Evasion chance" },
+                "Arcanist", "Assassin", "Bilgewater", "Bruiser", "Defender", "Demacia", 
+                "Disruptor", "Duelist", "Freljord", "Gunslinger", "Invoker", "Ionia", "Ixtal",
+                "Juggernaut", "Longshot", "Noxus", "Piltover", "Quickstriker", "Shadow Isles",
+                "Shurima", "Slayer", "Targon", "Void", "Warden", "Zaun", "Yordle"
             ],
             metaComps: [
-                {
-                    id: "reaper-carries",
-                    name: "Reaper Carries",
-                    rating: "S",
-                    winRate: 54.2,
-                    pickRate: 18.5,
-                    units: ["Aatrox", "Darius", "Draven"],
-                    description: "Powerful physical damage scaling with Reaper synergy"
-                },
-                {
-                    id: "arcanist-control",
-                    name: "Arcanist Control",
-                    rating: "S",
-                    winRate: 52.8,
-                    pickRate: 16.3,
-                    units: ["Annie", "Azir", "Zilean"],
-                    description: "Spell-focused composition with massive AP scaling"
-                },
-                {
-                    id: "void-carry",
-                    name: "Void Carry",
-                    rating: "A",
-                    winRate: 50.5,
-                    pickRate: 14.2,
-                    units: ["Belveth", "Kaisa", "Kalista"],
-                    description: "Void carries with high burst damage"
-                },
-                {
-                    id: "ionia-slayers",
-                    name: "Ionia Slayers",
-                    rating: "A",
-                    winRate: 49.8,
-                    pickRate: 12.1,
-                    units: ["Yone", "Yasuo", "Ahri"],
-                    description: "Fast attacking Ionia composition"
-                },
-                {
-                    id: "bruiser-tanks",
-                    name: "Bruiser Frontline",
-                    rating: "A",
-                    winRate: 48.2,
-                    pickRate: 11.5,
-                    units: ["Braum", "Shyvana", "Volibear"],
-                    description: "Tanky composition with high durability"
-                },
+                { name: "Reaper Carries", rating: "S", wr: 54.2, pr: 18.5, units: "Aatrox, Darius, Draven", desc: "Powerful physical damage" },
+                { name: "Arcanist Control", rating: "S", wr: 52.8, pr: 16.3, units: "Annie, Azir, Zilean", desc: "Spell-focused AP scaling" },
+                { name: "Void Carry", rating: "A", wr: 50.5, pr: 14.2, units: "Belveth, Kai'Sa, Kalista", desc: "High burst damage" },
+                { name: "Ionia Slayers", rating: "A", wr: 49.8, pr: 12.1, units: "Yone, Yasuo, Ahri", desc: "Fast attacking composition" },
+                { name: "Bruiser Frontline", rating: "A", wr: 48.2, pr: 11.5, units: "Braum, Shyvana, Volibear", desc: "Tanky durability" },
             ],
             items: [
-                // Base Components (not really items, but listed for reference)
-                { name: "B.F. Sword", type: "component", description: "Attack Damage component" },
-                { name: "Needlessly Large Rod", type: "component", description: "Ability Power component" },
-                { name: "Negatron Cloak", type: "component", description: "Magic Resist component" },
-                { name: "Chain Vest", type: "component", description: "Armor component" },
-                { name: "Giant's Belt", type: "component", description: "Health component" },
-                { name: "Recurve Bow", type: "component", description: "Attack Speed component" },
-                { name: "Spear of Shojin", type: "component", description: "Mana component" },
-                { name: "Neeko's Help", type: "component", description: "Copy unit component" },
-
-                // Completed Items (Most Popular)
-                { name: "Infinity Force", type: "completed", description: "Gain Critical Strike damage. Crit attacks deal bonus damage" },
-                { name: "Rabadon's Deathcap", type: "completed", description: "Gain Ability Power. Massively increases AP scaling" },
-                { name: "Protector's Vow", type: "completed", description: "Gain Mana. Shields grant durability" },
-                { name: "Red Buff", type: "completed", description: "Physical attacks deal Burn. Burns stack for damage" },
-                { name: "Bloodthirster", type: "completed", description: "Gain lifesteal. Heal from damage dealt" },
-                { name: "Hand of Justice", type: "completed", description: "Attacks and abilities can critically strike" },
-                { name: "Liandry's Torment", type: "completed", description: "Gain Magic Penetration. Spells deal bonus magic damage" },
-                { name: "Adaptive Helm", type: "completed", description: "Gain Magic Resist. Block ability damage" },
-                { name: "Gargoyle's Stoneplate", type: "completed", description: "Gain Armor. When under fire, gain additional resistances" },
-                { name: "Spellthief's Gloves", type: "completed", description: "Holder gains Arcanist trait" },
-                { name: "Frozen Heart", type: "completed", description: "Enemies near holder attack slower" },
-                { name: "Ionic Spark", type: "completed", description: "Deal magic damage when attacked" },
-                { name: "Warmog's Armor", type: "completed", description: "Out of combat, heal all health" },
-                { name: "Zeke's Herald", type: "completed", description: "Adjacent allies gain Attack Speed" },
-                { name: "Zhonya's Hourglass", type: "completed", description: "At low health, gain invulnerability" },
-                { name: "Shadowflame", type: "completed", description: "Gain Magic Penetration and AP" },
-                { name: "Deathblade", type: "completed", description: "Gain Attack Damage. Stacks on kills" },
-                { name: "Edge of Night", type: "completed", description: "Cast spell grants shield" },
-                { name: "Morellonomicon", type: "completed", description: "Spells apply grievous wounds" },
-                { name: "Sunfire Aegis", type: "completed", description: "Burn enemies in radius" },
+                { name: "Infinity Force", desc: "Gain Critical Strike damage" },
+                { name: "Rabadon's Deathcap", desc: "Massive Ability Power boost" },
+                { name: "Bloodthirster", desc: "Gain lifesteal from damage" },
+                { name: "Hand of Justice", desc: "Abilities can critically strike" },
+                { name: "Liandry's Torment", desc: "Magic Penetration & spell damage" },
+                { name: "Adaptive Helm", desc: "Block ability damage" },
+                { name: "Gargoyle's Stoneplate", desc: "Additional resistances" },
+                { name: "Frozen Heart", desc: "Enemies attack slower" },
+                { name: "Ionic Spark", desc: "Deal magic damage when hit" },
+                { name: "Warmog's Armor", desc: "Out-of-combat health regen" },
+                { name: "Zhonya's Hourglass", desc: "Become invulnerable at low health" },
+                { name: "Morellonomicon", desc: "Grievous wounds on spells" },
             ]
         };
 
-        // State
         let currentTeam = [];
         let savedTeams = JSON.parse(localStorage.getItem('tftTeams') || '[]');
 
-        // Initialize
         function init() {
             renderTeamGrid();
-            renderUnitList();
+            filterUnits();
             populateTraitFilter();
             loadMetaComps();
             loadItems();
-            updateOnlineStatus();
         }
-
-        function updateOnlineStatus() {
-            const badge = document.querySelector('.status-badge');
-            if (navigator.onLine) {
-                badge.textContent = '✓ Offline Ready';
-            } else {
-                badge.textContent = '📴 Offline Mode';
-            }
-        }
-
-        window.addEventListener('online', updateOnlineStatus);
-        window.addEventListener('offline', updateOnlineStatus);
 
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
         }
@@ -883,15 +663,12 @@
         function renderTeamGrid() {
             const grid = document.getElementById('teamGrid');
             grid.innerHTML = '';
-
             for (let i = 0; i < 8; i++) {
                 const slot = document.createElement('div');
-                slot.className = 'team-slot';
-                
+                slot.className = currentTeam[i] ? 'team-slot filled' : 'team-slot empty';
                 if (currentTeam[i]) {
-                    slot.classList.add('filled');
                     slot.innerHTML = `
-                        <div class="unit-card">
+                        <div class="unit-info">
                             <div class="unit-emoji">${currentTeam[i].img}</div>
                             <div class="unit-name">${currentTeam[i].name}</div>
                             <div class="unit-cost">${currentTeam[i].cost}⭐</div>
@@ -899,22 +676,18 @@
                         <button class="delete-btn" onclick="deleteUnit(${i})">×</button>
                     `;
                 } else {
-                    slot.innerHTML = '+';
+                    slot.textContent = '+';
                 }
                 grid.appendChild(slot);
             }
-
             document.getElementById('teamCount').textContent = currentTeam.length;
-            updateTraitSynergies();
-            updateCostSummary();
+            updateTraits();
+            updateCost();
         }
 
         function populateTraitFilter() {
             const filter = document.getElementById('traitFilter');
-            filter.innerHTML = '<option value="all">All Traits</option>';
-
-            const traits = [...new Set(tftData.champions.flatMap(u => u.traits))];
-            traits.sort().forEach(trait => {
+            tftData.traits.forEach(trait => {
                 const option = document.createElement('option');
                 option.value = trait;
                 option.textContent = trait;
@@ -923,25 +696,14 @@
         }
 
         function filterUnits() {
-            renderFiltered();
-        }
-
-        function renderFiltered() {
             const search = document.getElementById('searchBox').value.toLowerCase();
             const trait = document.getElementById('traitFilter').value;
-
             let units = tftData.champions;
-            
-            if (trait !== 'all') {
-                units = units.filter(u => u.traits.includes(trait));
-            }
-            if (search) {
-                units = units.filter(u => u.name.toLowerCase().includes(search));
-            }
+            if (trait !== 'all') units = units.filter(u => u.traits.includes(trait));
+            if (search) units = units.filter(u => u.name.toLowerCase().includes(search));
 
             const list = document.getElementById('unitList');
             list.innerHTML = '';
-
             units.forEach(unit => {
                 const btn = document.createElement('button');
                 btn.className = 'unit-btn';
@@ -961,86 +723,65 @@
 
         function addUnit(unit) {
             if (currentTeam.length < 8) {
-                currentTeam.push({ ...unit });
+                currentTeam.push(unit);
                 renderTeamGrid();
-                renderFiltered();
+                filterUnits();
             }
         }
 
-        function deleteUnit(index) {
-            currentTeam.splice(index, 1);
+        function deleteUnit(i) {
+            currentTeam.splice(i, 1);
             renderTeamGrid();
-            renderFiltered();
+            filterUnits();
         }
 
-        function updateTraitSynergies() {
+        function updateTraits() {
             const traits = {};
-            currentTeam.forEach(unit => {
-                unit.traits.forEach(trait => {
-                    traits[trait] = (traits[trait] || 0) + 1;
-                });
-            });
-
-            const traitsSection = document.getElementById('traitsSection');
-            const traitsList = document.getElementById('traitsList');
-
+            currentTeam.forEach(u => u.traits.forEach(t => traits[t] = (traits[t] || 0) + 1));
+            const section = document.getElementById('traitsSection');
+            const list = document.getElementById('traitsList');
             if (Object.keys(traits).length > 0) {
-                traitsSection.classList.remove('hidden');
-                traitsList.innerHTML = '';
-
-                Object.entries(traits)
-                    .sort((a, b) => b[1] - a[1])
-                    .forEach(([trait, count]) => {
-                        const badge = document.createElement('div');
-                        badge.className = 'trait-badge';
-                        const desc = tftData.traits.find(t => t.name === trait);
-                        badge.textContent = `${trait} ×${count}`;
-                        badge.title = desc ? desc.description : '';
-                        traitsList.appendChild(badge);
-                    });
+                section.classList.remove('hidden');
+                list.innerHTML = '';
+                Object.entries(traits).sort((a, b) => b[1] - a[1]).forEach(([t, c]) => {
+                    const badge = document.createElement('div');
+                    badge.className = 'trait-badge';
+                    badge.textContent = `${t} ×${c}`;
+                    list.appendChild(badge);
+                });
             } else {
-                traitsSection.classList.add('hidden');
+                section.classList.add('hidden');
             }
         }
 
-        function updateCostSummary() {
-            const costSummary = document.getElementById('costSummary');
-            const totalCost = currentTeam.reduce((sum, u) => sum + u.cost, 0);
-
+        function updateCost() {
+            const cost = currentTeam.reduce((s, u) => s + u.cost, 0);
+            const summary = document.getElementById('costSummary');
             if (currentTeam.length > 0) {
-                costSummary.classList.remove('hidden');
-                document.getElementById('totalCost').textContent = `${totalCost}`;
+                summary.classList.remove('hidden');
+                document.getElementById('totalCost').textContent = cost;
             } else {
-                costSummary.classList.add('hidden');
+                summary.classList.add('hidden');
             }
         }
 
         function saveTeam() {
             const name = document.getElementById('teamName').value;
             if (!name || currentTeam.length === 0) {
-                alert('Please name your team and add at least one unit');
+                alert('Please name your team and add units');
                 return;
             }
-
             const traits = {};
-            currentTeam.forEach(unit => {
-                unit.traits.forEach(trait => {
-                    traits[trait] = (traits[trait] || 0) + 1;
-                });
-            });
-
-            const newTeam = {
+            currentTeam.forEach(u => u.traits.forEach(t => traits[t] = (traits[t] || 0) + 1));
+            savedTeams.unshift({
                 id: Date.now(),
                 name: name,
                 units: currentTeam,
                 traits: Object.entries(traits),
                 timestamp: new Date().toLocaleDateString(),
-                cost: currentTeam.reduce((sum, u) => sum + u.cost, 0),
-            };
-
-            savedTeams.unshift(newTeam);
+                cost: currentTeam.reduce((s, u) => s + u.cost, 0)
+            });
             localStorage.setItem('tftTeams', JSON.stringify(savedTeams));
-
             alert('✅ Team saved!');
             document.getElementById('teamName').value = '';
             currentTeam = [];
@@ -1050,21 +791,17 @@
         function loadMetaComps() {
             const list = document.getElementById('metaList');
             list.innerHTML = '';
-
             tftData.metaComps.forEach(comp => {
-                const tierClass = `tier-${comp.rating.toLowerCase()}`;
                 const div = document.createElement('div');
                 div.className = 'meta-comp';
                 div.innerHTML = `
-                    <div style="overflow: auto;">
-                        <div class="tier-badge ${tierClass}">${comp.rating}</div>
-                        <div class="comp-name">${comp.name}</div>
-                        <div class="comp-units">Units: ${comp.units.join(', ')}</div>
-                        <div style="font-size: 0.875rem; color: #d1d5db; margin-top: 0.5rem;">${comp.description}</div>
-                        <div class="comp-stats" style="clear: both;">
-                            <span class="comp-wr">${comp.winRate}% WR</span>
-                            <span class="comp-pr">${comp.pickRate}% Pick</span>
-                        </div>
+                    <div class="tier-badge tier-${comp.rating.toLowerCase()}">${comp.rating}</div>
+                    <div class="comp-name">${comp.name}</div>
+                    <div class="comp-units">${comp.units}</div>
+                    <div class="comp-desc">${comp.desc}</div>
+                    <div class="comp-stats">
+                        <span class="comp-wr">${comp.wr}% WR</span>
+                        <span class="comp-pr">${comp.pr}% Pick</span>
                     </div>
                 `;
                 list.appendChild(div);
@@ -1073,41 +810,12 @@
 
         function loadItems() {
             const list = document.getElementById('itemsList');
-            list.innerHTML = '<p style="color: #d1d5db; font-size: 0.875rem;">Set 16 includes 50+ items. For full item details with recipes and combinations, visit tftset16.com/items</p>';
-            
-            const itemsByType = {
-                'Popular Completed Items': tftData.items.filter(i => i.type === 'completed').slice(0, 15)
-            };
-
-            Object.entries(itemsByType).forEach(([category, items]) => {
-                const categoryDiv = document.createElement('div');
-                categoryDiv.style.marginTop = '1.5rem';
-                
-                const title = document.createElement('h3');
-                title.textContent = category;
-                title.style.color = '#06b6d4';
-                title.style.marginBottom = '1rem';
-                title.style.fontSize = '0.875rem';
-                title.style.fontWeight = '700';
-                categoryDiv.appendChild(title);
-
-                items.forEach(item => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.style.padding = '0.75rem';
-                    itemDiv.style.background = 'rgba(59, 130, 246, 0.1)';
-                    itemDiv.style.border = '1px solid rgba(59, 130, 246, 0.3)';
-                    itemDiv.style.borderRadius = '0.5rem';
-                    itemDiv.style.marginBottom = '0.5rem';
-                    itemDiv.style.fontSize = '0.875rem';
-                    
-                    itemDiv.innerHTML = `
-                        <div style="font-weight: 600; color: #fff;">${item.name}</div>
-                        <div style="color: #d1d5db; margin-top: 0.25rem;">${item.description}</div>
-                    `;
-                    categoryDiv.appendChild(itemDiv);
-                });
-
-                list.appendChild(categoryDiv);
+            list.innerHTML = '';
+            tftData.items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'item-card';
+                div.innerHTML = `<div class="item-name">${item.name}</div><div class="item-desc">${item.desc}</div>`;
+                list.appendChild(div);
             });
         }
 
