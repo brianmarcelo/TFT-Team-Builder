@@ -620,25 +620,87 @@
                 "Shurima", "Slayer", "Targon", "Void", "Warden", "Zaun", "Yordle"
             ],
             metaComps: [
-                { name: "Reaper Carries", rating: "S", wr: 54.2, pr: 18.5, units: "Aatrox, Darius, Draven", desc: "Powerful physical damage" },
-                { name: "Arcanist Control", rating: "S", wr: 52.8, pr: 16.3, units: "Annie, Azir, Zilean", desc: "Spell-focused AP scaling" },
-                { name: "Void Carry", rating: "A", wr: 50.5, pr: 14.2, units: "Belveth, Kai'Sa, Kalista", desc: "High burst damage" },
+                // S-TIER
+                { name: "Reaper Carries", rating: "S", wr: 54.2, pr: 18.5, units: "Aatrox, Darius, Draven", desc: "Powerful physical damage scaling" },
+                { name: "Arcanist Control", rating: "S", wr: 52.8, pr: 16.3, units: "Annie, Azir, Zilean", desc: "Spell-focused AP scaling with mana" },
+                { name: "Baron Void", rating: "S", wr: 51.5, pr: 15.2, units: "Baron Nashor, Belveth, Kai'Sa", desc: "Void 7 with Baron as carry" },
+                
+                // A-TIER
+                { name: "Void Carry", rating: "A", wr: 50.5, pr: 14.2, units: "Belveth, Kai'Sa, Kalista", desc: "High burst damage scaling" },
                 { name: "Ionia Slayers", rating: "A", wr: 49.8, pr: 12.1, units: "Yone, Yasuo, Ahri", desc: "Fast attacking composition" },
-                { name: "Bruiser Frontline", rating: "A", wr: 48.2, pr: 11.5, units: "Braum, Shyvana, Volibear", desc: "Tanky durability" },
+                { name: "Bruiser Frontline", rating: "A", wr: 48.2, pr: 11.5, units: "Braum, Shyvana, Volibear", desc: "Tanky durability with sustain" },
+                { name: "Gunslinger Carry", rating: "A", wr: 49.1, pr: 13.8, units: "Miss Fortune, Draven, Graves", desc: "Attack Speed focused damage" },
+                { name: "Sentinel Guard", rating: "A", wr: 47.9, pr: 10.5, units: "Garen, Lux, Caitlyn", desc: "Block and protect composition" },
+                { name: "Warden Tank", rating: "A", wr: 48.6, pr: 11.3, units: "Ornn, Braum, Nautilus", desc: "Defensive shields and durability" },
+                { name: "Invoker Mages", rating: "A", wr: 49.3, pr: 12.7, units: "Zilean, Lissandra, Leblanc", desc: "High spell damage and control" },
+                
+                // B-TIER
+                { name: "Shadow Isles Reaper", rating: "B", wr: 46.8, pr: 9.5, units: "Viego, Thresh, Kalista", desc: "Soul collection with control" },
+                { name: "Disruptor Control", rating: "B", wr: 46.2, pr: 8.9, units: "Gwen, Seraphine, Malzahar", desc: "Crowd control focused" },
+                { name: "Demacia Rally", rating: "B", wr: 45.7, pr: 8.3, units: "Garen, Poppy, Jarvan", desc: "Armor stacking defensive" },
+                { name: "Bilgewater Pirates", rating: "B", wr: 44.9, pr: 7.8, units: "Tahm Kench, Miss Fortune, Nautilus", desc: "Treasure and loot generation" },
+                { name: "Shurima Ascendants", rating: "B", wr: 43.5, pr: 6.5, units: "Azir, Nasus, Xerath", desc: "Ascension and scaling power" },
+                { name: "Ixtal Quest", rating: "B", wr: 44.3, pr: 7.2, units: "Nidalee, Skarner, Milio", desc: "Quest completion rewards" },
+                { name: "Freljord Chill", rating: "B", wr: 44.1, pr: 6.8, units: "Ashe, Braum, Sejuani", desc: "Freeze and control enemies" },
+                
+                // C-TIER
+                { name: "Zaun Chemtech", rating: "C", wr: 42.5, pr: 5.5, units: "Ekko, Singed, Jinx", desc: "Poison and burn damage" },
+                { name: "Piltover Tech", rating: "C", wr: 41.8, pr: 4.9, units: "Caitlyn, Orianna, Loris", desc: "Technology synergies" },
+                { name: "Yordle Scout", rating: "C", wr: 40.3, pr: 4.2, units: "Teemo, Lulu, Ziggs", desc: "Evasion and range" },
+                { name: "Noxus Bleeding", rating: "C", wr: 41.2, pr: 4.6, units: "Darius, Ambessa, Leblanc", desc: "Bleed and damage over time" },
             ],
             items: [
+                // BASE COMPONENTS
+                { name: "B.F. Sword", type: "component", desc: "Attack Damage component" },
+                { name: "Needlessly Large Rod", type: "component", desc: "Ability Power component" },
+                { name: "Negatron Cloak", type: "component", desc: "Magic Resist component" },
+                { name: "Chain Vest", type: "component", desc: "Armor component" },
+                { name: "Giant's Belt", type: "component", desc: "Health component" },
+                { name: "Recurve Bow", type: "component", desc: "Attack Speed component" },
+                { name: "Spear of Shojin", type: "component", desc: "Mana component" },
+                { name: "Neeko's Help", type: "component", desc: "Copy unit component" },
+
+                // OFFENSIVE ITEMS
                 { name: "Infinity Force", desc: "Gain Critical Strike damage" },
                 { name: "Rabadon's Deathcap", desc: "Massive Ability Power boost" },
                 { name: "Bloodthirster", desc: "Gain lifesteal from damage" },
                 { name: "Hand of Justice", desc: "Abilities can critically strike" },
                 { name: "Liandry's Torment", desc: "Magic Penetration & spell damage" },
+                { name: "Deathblade", desc: "Gain Attack Damage, stacks on kills" },
+                { name: "Morellonomicon", desc: "Grievous wounds on spells" },
+                { name: "Sunfire Aegis", desc: "Burn enemies in radius" },
+                { name: "Shadowflame", desc: "Magic Penetration and AP" },
+                { name: "Void Staff", desc: "Ignore enemy Magic Resist" },
+                { name: "Last Whisper", desc: "Physical damage ignores Armor" },
+                { name: "Archangel's Staff", desc: "Bonus Mana and AP" },
+                { name: "Guinsoo's Rageblade", desc: "Attack Speed stacking" },
+                { name: "Rapid Firecannon", desc: "Increased Attack Range" },
+
+                // DEFENSIVE ITEMS
                 { name: "Adaptive Helm", desc: "Block ability damage" },
                 { name: "Gargoyle's Stoneplate", desc: "Additional resistances" },
                 { name: "Frozen Heart", desc: "Enemies attack slower" },
                 { name: "Ionic Spark", desc: "Deal magic damage when hit" },
                 { name: "Warmog's Armor", desc: "Out-of-combat health regen" },
                 { name: "Zhonya's Hourglass", desc: "Become invulnerable at low health" },
-                { name: "Morellonomicon", desc: "Grievous wounds on spells" },
+                { name: "Spirit Visage", desc: "Heal allies in radius" },
+                { name: "Thornmail", desc: "Reflect damage from attackers" },
+                { name: "Sterak's Gage", desc: "Shield when at low health" },
+                { name: "Hollow Radiance", desc: "Enemies deal less damage" },
+                { name: "Abyssal Mask", desc: "Enemies deal reduced magic damage" },
+                { name: "Kaenic Rookern", desc: "Block and amplify healing" },
+
+                // SUPPORT & UTILITY
+                { name: "Zeke's Herald", desc: "Adjacent allies gain Attack Speed" },
+                { name: "Protector's Vow", desc: "Mana bonus & team shields" },
+                { name: "Red Buff", desc: "Burns deal increased damage" },
+                { name: "Edge of Night", desc: "Cast spell grants shield" },
+                { name: "Banshee's Claw", desc: "Block incoming spells" },
+                { name: "Mikael's Blessing", desc: "Remove crowd control effects" },
+                { name: "Spellthief's Gloves", desc: "Holder gains Arcanist trait" },
+                { name: "Thieves Gloves", desc: "Equip random items each round" },
+                { name: "Titan's Resolve", desc: "Gain stats when attacked or spell cast" },
+                { name: "Jeweled Gauntlet", desc: "Abilities can critically strike" },
             ]
         };
 
